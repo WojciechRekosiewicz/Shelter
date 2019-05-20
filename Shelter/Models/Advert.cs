@@ -10,13 +10,15 @@ namespace Shelter.Models
     {
         public int AdvertId { get; set; }
         public string Title { get; set; }
-        [ForeignKey("User")]
         public int AuthorId { get; set; }
-        [ForeignKey("User")]
-        public int ReservingId { get; set; }
+        public int? ReservingId { get; set; }
         public string ShortDescription { get; set; }
         public string LongDescription { get; set; }
         public string ImageUrl { get; set; }
 
+        [ForeignKey("AuthorId")]
+        public User AuthorUser { get; set; }
+        [ForeignKey("ReservingId")]
+        public User ReservingUser { get; set; } 
     }
 }
