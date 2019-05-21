@@ -23,6 +23,7 @@ namespace Shelter.Controllers
             return View(adverts);
         }
 
+
         public IActionResult Privacy()
         {
             return View();
