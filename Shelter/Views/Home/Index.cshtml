@@ -15,9 +15,18 @@
         <div class="thumbnail">
             <img src="@advert.ImageUrl" alt="" />
             <div class="caption">
-                <h4 class="pull-right">
-                    Av
-                </h4>
+                @if (@advert.ReservingId == null)
+                {
+                    <h4 class="pull-right">
+                        Avaiable
+                    </h4>
+                }
+                else
+                {
+                  <h4 class="pull-right">
+                        Reserved
+                    </h4>
+                }
                 <h4>
                     <a asp-controller="Home" asp-action="Details" asp-route-id="@advert.AdvertId">@advert.Title</a>
                 </h4>
