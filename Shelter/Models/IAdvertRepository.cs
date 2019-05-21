@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Shelter.Models
 {
-    interface IAdvertRepository
+    public interface IAdvertRepository
     {
         IEnumerable<Advert> GetAllAdverts();
         Advert GetAdvertById(int AdvertID);
