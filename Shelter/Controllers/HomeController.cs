@@ -23,6 +23,16 @@ namespace Shelter.Controllers
             return View(adverts);
         }
 
+        public IActionResult Details(int id)
+        {
+            var advert = _advertRepository.GetAdvertById(id);
+            if(advert == null)
+            {
+                return NotFound();
+            }
+
+            return View(advert);
+        }
 
         public IActionResult Privacy()
         {

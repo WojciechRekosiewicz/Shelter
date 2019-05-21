@@ -1,5 +1,5 @@
 ﻿@{
-    //ViewData["Title"] = "Home Page";
+
     Layout = "_Layout";
 }
 @model IEnumerable<Shelter.Models.Advert>
@@ -19,7 +19,7 @@
                     Av
                 </h4>
                 <h4>
-                    @advert.Title
+                    <a asp-controller="Home" asp-action="Details" asp-route-id="@advert.AdvertId">@advert.Title</a>
                 </h4>
                 <h4>
                     @advert.ShortDescription
