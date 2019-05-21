@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Shelter.Models
 {
-    interface IUserRepository
+    public interface IUserRepository
     {
         IEnumerable<User> GetAllUsers();
         User GetUserById(int UserId);
