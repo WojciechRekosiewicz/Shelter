@@ -6,10 +6,24 @@
     <UserSecretsId>c9a37098-0435-4723-9568-4452c13146a2</UserSecretsId>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Migrations\20190521044705_IdentityAdded.cs" />
+    <Compile Remove="Migrations\20190521044705_IdentityAdded.Designer.cs" />
+    <Compile Remove="Migrations\20190521044852_IdentityAdded2.cs" />
+    <Compile Remove="Migrations\20190521044852_IdentityAdded2.Designer.cs" />
+    <Compile Remove="Migrations\20190521045301_IdentityAdded3.cs" />
+    <Compile Remove="Migrations\20190521045301_IdentityAdded3.Designer.cs" />
+    <Compile Remove="Migrations\20190521061018_test2.cs" />
+    <Compile Remove="Migrations\20190521061018_test2.Designer.cs" />
+    <Compile Remove="Migrations\20190521064010_ConnectingTables.cs" />
+    <Compile Remove="Migrations\20190521064010_ConnectingTables.Designer.cs" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
   </ItemGroup>
 
 </Project>
