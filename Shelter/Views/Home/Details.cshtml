@@ -5,7 +5,18 @@
 <div class="thumbnail">
     <img alt="@Model.Title" src="@Model.ImageUrl" />
     <div class="caption-full">
-        <h3 class="pull-right"> Av</h3>
+        @if (@Model.ReservingId == null)
+        {
+            <h4 class="pull-right">
+                Avaiable
+            </h4>
+        }
+        else
+        {
+            <h4 class="pull-right">
+                Reserved
+            </h4>
+        }
         <h3>
             <a href="#">@Model.Title</a>
         </h3>
