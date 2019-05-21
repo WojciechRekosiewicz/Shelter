@@ -10,9 +10,28 @@ namespace Shelter.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IAdvertRepository _advertRepository;
+
+        public HomeController(IAdvertRepository advertRepository)
+        {
+            _advertRepository = advertRepository;
+        }
+
         public IActionResult Index()
         {
-            return View();
+            var adverts = _advertRepository.GetAllAdverts().OrderBy(p => p.Title);
+            return View(adverts);
+        }
+
+        public IActionResult Details(int id)
+        {
+            var advert = _advertRepository.GetAdvertById(id);
+            if(advert == null)
+            {
+                return NotFound();
+            }
+
+            return View(advert);
         }
 
         public IActionResult Privacy()
