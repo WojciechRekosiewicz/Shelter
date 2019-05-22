@@ -65,5 +65,21 @@ namespace Shelter.Controllers
                 return Redirect("/Identity/Account/Login");
             }
         }
+
+        [HttpPost]
+        public IActionResult Reserve(int id)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                
+                return View();
+            }
+            else
+            {
+                return Redirect("/Identity/Account/Login");
+            }
+        }
+
     }
 }

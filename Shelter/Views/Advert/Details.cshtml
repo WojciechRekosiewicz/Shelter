@@ -5,22 +5,28 @@
 <div class="thumbnail">
     <img alt="@Model.Title" src="@Model.ImageUrl" />
     <div class="caption-full">
+
         @if (@Model.ReservingId == null)
         {
             <h4 class="pull-right">
-                Avaiable
+                 Avaiable
             </h4>
+            
+            <button type="button" class="btn btn-success pull-right">Reserve</button>
         }
         else
         {
             <h4 class="pull-right">
                 Reserved
             </h4>
+         
+            <button type="button" class="btn btn-danger pull-right" disabled>Reserve</button>
         }
         <h3>
             @Model.Title
         </h3>
         <h4>@Model.ShortDescription</h4>
         <p>@Model.LongDescription </p>
+
     </div>
 </div>
