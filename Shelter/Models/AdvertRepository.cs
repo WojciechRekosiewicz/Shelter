@@ -14,6 +14,11 @@ namespace Shelter.Models
             _appDbContext = appDbContext;
         }
 
+        public IEnumerable<Advert> GetAdvertsByUserId(string id)
+        {
+            return _appDbContext.Adverts.Where(advert => advert.AuthorId == id).ToArray();
+        }
+
         public IEnumerable<Advert> GetAllAdverts()
         {
             return _appDbContext.Adverts.ToArray();
