@@ -16,7 +16,7 @@ namespace Shelter.Models
 
         public IEnumerable<Advert> GetAllAdverts()
         {
-            return _appDbContext.Adverts;
+            return _appDbContext.Adverts.ToArray();
         }
 
         public Advert GetAdvertById(int AdvertID)
