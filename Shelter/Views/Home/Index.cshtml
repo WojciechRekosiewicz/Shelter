@@ -1,6 +1,7 @@
 ﻿@{
 
     Layout = "_Layout";
+    ViewData["Title"] = "Home";
 }
 @model IEnumerable<Shelter.Models.Advert>
 
@@ -13,7 +14,7 @@
 
     <div class="col-sm-1 col-lg-4 col-md-4">        
         <div class="thumbnail">
-            <img src="@advert.ImageUrl" alt="" />
+            <img src="@advert.ImageUrl" alt="" height="420" width="420" />
             <div class="caption">
                 @if (@advert.ReservingId == null)
                 {
@@ -28,7 +29,7 @@
                     </h4>
                 }
                 <h4>
-                    <a asp-controller="Home" asp-action="Details" asp-route-id="@advert.AdvertId">@advert.Title</a>
+                    <a asp-controller="Advert" asp-action="Details" asp-route-id="@advert.AdvertId">@advert.Title</a>
                 </h4>
                 <h4>
                     @advert.ShortDescription

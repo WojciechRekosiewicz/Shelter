@@ -16,7 +16,7 @@ namespace Shelter.Models
 
         public IEnumerable<Advert> GetAllAdverts()
         {
-            return _appDbContext.Adverts;
+            return _appDbContext.Adverts.ToArray();
         }
 
         public Advert GetAdvertById(int AdvertID)
@@ -24,6 +24,16 @@ namespace Shelter.Models
             return _appDbContext.Adverts.FirstOrDefault(p => p.AdvertId == AdvertID);
         }
 
+        public void Create(Advert advert)
+        {
+            _appDbContext.Add(advert);
 
+            _appDbContext.SaveChanges();
+        }
+
+        public void Delete(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
