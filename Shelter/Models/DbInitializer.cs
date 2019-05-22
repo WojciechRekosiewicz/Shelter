@@ -13,8 +13,8 @@ namespace Shelter.Models
             {
                 context.AddRange
                 (
-                    new Advert { Title = "Kot burek", AuthorId = "eaa198b0-3105-432f-9f14-f5e8d9f669a2", ShortDescription = "Taki se kotek fajny", LongDescription = "Super mega ekstra dlugi kot z dlugim opisem", ImageUrl = "https://img.besty.pl/images/396/82/3968217.jpg" },
-                    new Advert { Title = "Pies Azor", AuthorId = "eaa198b0-3105-432f-9f14-f5e8d9f669a2", ShortDescription = "Duży skurczybyk", LongDescription = "Fajnie goni listonosza", ImageUrl = "https://www.wykop.pl/cdn/c3201142/comment_zKuWohgYtJwjt30l9fjfxDUipsxbVUOj.jpg" }
+                    new Advert { Title = "Kot burek", AuthorId = "3a70755a-74c2-48c5-b4a6-9f54f8006367", ShortDescription = "Taki se kotek fajny", LongDescription = "Super mega ekstra dlugi kot z dlugim opisem", ImageUrl = "https://img.besty.pl/images/396/82/3968217.jpg" },
+                    new Advert { Title = "Pies Azor", AuthorId = "3a70755a-74c2-48c5-b4a6-9f54f8006367", ShortDescription = "Duży skurczybyk", LongDescription = "Fajnie goni listonosza", ImageUrl = "https://www.wykop.pl/cdn/c3201142/comment_zKuWohgYtJwjt30l9fjfxDUipsxbVUOj.jpg" }
                 );
 
                 context.SaveChanges();

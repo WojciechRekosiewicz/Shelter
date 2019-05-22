@@ -1,0 +1,37 @@
+﻿@model Shelter.Models.Advert
+
+<h2>@Model.Title</h2>
+
+<div class="thumbnail">
+    <img alt="@Model.Title" src="@Model.ImageUrl" />
+    <div class="caption-full">
+
+        @if (@Model.ReservingId == null)
+        {
+            <h4 class="pull-right">
+                Avaiable
+            </h4>
+
+            <form asp-action="Reserve">
+                <input asp-controller="Advert" asp-action="Reserve" asp-route-id="@Model.AdvertId" type="submit" value="Reserve" class="btn btn-success pull-right" />
+            </form>
+
+
+        }
+        else
+        {
+            <h4 class="pull-right">
+                Reserved
+            </h4>
+
+            <form asp-action="Reserve">
+                <input asp-controller="Advert" asp-action="Reserve" asp-route-id="@Model.AdvertId" type="submit" value="Reserve" class="btn btn-success pull-right" disabled />
+            </form>}
+        <h3>
+            @Model.Title
+        </h3>
+        <h4>@Model.ShortDescription</h4>
+        <p>@Model.LongDescription </p>
+
+    </div>
+</div>

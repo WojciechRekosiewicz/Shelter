@@ -5,15 +5,15 @@
     <title>@ViewData["Title"] - Shelter</title>
     <link href="~/lib/bootstrap/css/bootstrap.css" rel="stylesheet" />
     <link href="~/content/site.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
-
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a asp-controller="Home" asp-action="Index" class="navbar-brand">Super Shelter</a></li>
-                    <li><a asp-controller="Home" asp-action="Privacy" class="navbar-brand">Privacy</a></li>
+                    <li><a asp-controller="Home" asp-action="Privacy">Privacy</a></li>
                     <partial name="_LoginPartial" />
                     @*  <li><a asp-controller="Feedback" asp-action="Index">Feedback</a></li>*@
                 </ul>

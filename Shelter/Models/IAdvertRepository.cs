@@ -9,5 +9,8 @@ namespace Shelter.Models
     {
         IEnumerable<Advert> GetAllAdverts();
         Advert GetAdvertById(int AdvertID);
+        void Create(Advert advert);
+        void Delete(int id);
+        void Update(Advert advert);
     }
 }
