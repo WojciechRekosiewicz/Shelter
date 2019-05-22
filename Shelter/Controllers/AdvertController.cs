@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -16,6 +17,27 @@ namespace Shelter.Controllers
         public AdvertController(IAdvertRepository advertRepository)
         {
             _advertRepository = advertRepository;
+        }
+
+        public IActionResult List()
+        {
+            var adverts = _advertRepository.GetAllAdverts().OrderBy(p => p.Title);
+
+            return View(adverts);
+        }
+
+        public IActionResult MyAdverts()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var adverts = _advertRepository.GetAdvertsByUserId(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+
+                return View(adverts);
+            }
+            else
+            {
+                return Redirect("/Identity/Account/Login");
+            }
         }
 
         public IActionResult Details(int id)
