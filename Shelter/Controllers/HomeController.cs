@@ -19,8 +19,7 @@ namespace Shelter.Controllers
 
         public IActionResult Index()
         {
-            var adverts = _advertRepository.GetAllAdverts().OrderBy(p => p.Title);
-            return View(adverts);
+            return Redirect("/Advert/List");
         }
 
         public IActionResult Privacy()
