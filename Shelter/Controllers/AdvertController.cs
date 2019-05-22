@@ -31,25 +31,39 @@ namespace Shelter.Controllers
         [HttpGet]
         public IActionResult Create(string errorMessage = null)
         {
-            ViewData["Message"] = errorMessage;
-            return View();
+            if(User.Identity.IsAuthenticated)
+            {
+                ViewData["Message"] = errorMessage;
+                return View();
+            }
+            else
+            {
+                return Redirect("/Identity/Account/Login");
+            }
         }
 
         [HttpPost]
         public IActionResult Create(Advert advert)
         {
-            // Getting user's Id from the session
-            var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            advert.AuthorId = userId;
+            if (User.Identity.IsAuthenticated)
+            {
+                // Getting user's Id from the session
+                var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                advert.AuthorId = userId;
 
-            // Render back to the creation route, otherwise validation does not work
-            if (advert.Title == null || advert.ShortDescription == null || advert.LongDescription == null) return Create();
+                // Render back to the creation route, otherwise validation does not work
+                if (advert.Title == null || advert.ShortDescription == null || advert.LongDescription == null) return Create();
 
-            // Custom image if user does not provide any
-            if (advert.ImageUrl == null) advert.ImageUrl = "https://img.tickld.com/filter:scale/quill/e/7/1/3/2/9/e7132910dcc33f74a29ac914162f97e82624ce06.jpg?mw=650";
+                // Custom image if user does not provide any
+                if (advert.ImageUrl == null) advert.ImageUrl = "https://img.tickld.com/filter:scale/quill/e/7/1/3/2/9/e7132910dcc33f74a29ac914162f97e82624ce06.jpg?mw=650";
 
-            _advertRepository.Create(advert);
-            return Redirect("/");
+                _advertRepository.Create(advert);
+                return Redirect("/");
+            }
+            else
+            {
+                return Redirect("/Identity/Account/Login");
+            }
         }
     }
 }
