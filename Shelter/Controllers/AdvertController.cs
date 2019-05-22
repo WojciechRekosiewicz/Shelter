@@ -110,7 +110,7 @@ namespace Shelter.Controllers
             {
                 var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
                 var advert = _advertRepository.GetAdvertById(id);
-                if (advert.ReservingId == null)
+                if (advert.ReservingId == null && !advert.AuthorId.Equals(userId))
                 {
                     advert.ReservingId = userId;
 
