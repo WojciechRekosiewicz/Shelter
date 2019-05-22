@@ -1,0 +1,26 @@
+﻿@model Shelter.Models.Advert
+
+<h2>@Model.Title</h2>
+
+<div class="thumbnail">
+    <img alt="@Model.Title" src="@Model.ImageUrl" />
+    <div class="caption-full">
+        @if (@Model.ReservingId == null)
+        {
+            <h4 class="pull-right">
+                Avaiable
+            </h4>
+        }
+        else
+        {
+            <h4 class="pull-right">
+                Reserved
+            </h4>
+        }
+        <h3>
+            <a href="#">@Model.Title</a>
+        </h3>
+        <h4>@Model.ShortDescription</h4>
+        <p>@Model.LongDescription </p>
+    </div>
+</div>
