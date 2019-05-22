@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -33,7 +33,23 @@ namespace Shelter.Models
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            var record = (from advert in _appDbContext.Adverts
+                            where advert.AdvertId == id
+                            select advert).FirstOrDefault();
+            if (record != null)
+            {
+                _appDbContext.Adverts.Remove(record);
+                _appDbContext.SaveChanges();
+            }
+        }
+
+        public bool CanDelete(string userId, int advertId)
+        {
+            var record = (from advert in _appDbContext.Adverts
+                            where advert.AdvertId == advertId
+                            select advert.AuthorId).FirstOrDefault();
+
+            return (record != null) ? record == userId : false;
         }
     }
 }

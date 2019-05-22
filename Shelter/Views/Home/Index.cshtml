@@ -4,40 +4,50 @@
     ViewData["Title"] = "Home";
 }
 @model IEnumerable<Shelter.Models.Advert>
+@using System.Security.Claims;
 
 <div class="text-center">
     <h4 class="display-4">Lista ogłoszeń</h4>
     @*<p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>*@
-    
-    @foreach(var advert in Model)
+
+    @foreach (var advert in Model)
     {
 
-    <div class="col-sm-1 col-lg-4 col-md-4">        
-        <div class="thumbnail">
-            <img src="@advert.ImageUrl" alt="" height="420" width="420" />
-            <div class="caption">
-                @if (@advert.ReservingId == null)
-                {
-                    <h4 class="pull-right">
-                        Avaiable
+        <div class="col-sm-1 col-lg-4 col-md-4">
+            <div class="thumbnail">
+                <img src="@advert.ImageUrl" alt="" height="420" width="420" />
+                <div class="caption">
+                    @if (@advert.ReservingId == null)
+                    {
+                        <h4 class="pull-right">
+                            Avaiable
+                        </h4>
+                    }
+                    else
+                    {
+                        <h4 class="pull-right">
+                            Reserved
+                        </h4>
+                    }
+                    <h4>
+                        <a asp-controller="Advert" asp-action="Details" asp-route-id="@advert.AdvertId">@advert.Title</a>
                     </h4>
-                }
-                else
-                {
-                  <h4 class="pull-right">
-                        Reserved
+                    <h4>
+                        @advert.ShortDescription
                     </h4>
-                }
-                <h4>
-                    <a asp-controller="Advert" asp-action="Details" asp-route-id="@advert.AdvertId">@advert.Title</a>
-                </h4>
-                <h4>
-                    @advert.ShortDescription
-                </h4>
 
-            </div>           
+                </div>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+                    if (currentUserId == advert.AuthorId)
+                    {
+                        <a asp-controller="Advert" asp-action="Delete" asp-route-id="@advert.AdvertId">Delete</a>
+                    }
+                }
+            </div>
         </div>
-    </div>
     }
 
 
