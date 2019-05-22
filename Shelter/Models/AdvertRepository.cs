@@ -35,5 +35,12 @@ namespace Shelter.Models
         {
             throw new NotImplementedException();
         }
+
+        public void Update(Advert advert)
+        {
+            _appDbContext.Update(advert);
+
+            _appDbContext.SaveChanges();
+        }
     }
 }

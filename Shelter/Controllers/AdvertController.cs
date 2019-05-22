@@ -66,14 +66,40 @@ namespace Shelter.Controllers
             }
         }
 
+        [HttpGet]
+        public IActionResult Reserve(string errorMessage = null)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                ViewData["Message"] = errorMessage;
+                return View();
+            }
+            else
+            {
+                return Redirect("/Identity/Account/Login");
+            }
+        }
+
+
         [HttpPost]
         public IActionResult Reserve(int id)
         {
             if (User.Identity.IsAuthenticated)
             {
                 var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-                
-                return View();
+                var advert = _advertRepository.GetAdvertById(id);
+                if (advert.ReservingId == null)
+                {
+                    advert.ReservingId = userId;
+
+                    _advertRepository.Update(advert);
+                    return View(advert);
+                }
+                else
+                {
+                    return Redirect("/");
+                }
+          
             }
             else
             {
