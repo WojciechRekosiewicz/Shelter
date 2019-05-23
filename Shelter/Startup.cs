@@ -38,6 +38,8 @@ namespace Shelter
              options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddTransient<IAdvertRepository, AdvertRepository>();
+            services.AddTransient<IUserRepository, UserRepository>();
+
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

@@ -1,4 +1,4 @@
-﻿@model Shelter.Models.Advert
+﻿@model Shelter.ViewModels.AdvertViewModel
 
 @{
     ViewData["Title"] = "Reserve";
@@ -8,6 +8,7 @@
 <h1>Animal @Model.Title has been reserved</h1>
 
 <h3> Please contact owner</h3>
-
+<h3>Contact information: </h3>
+<h4>@Model.User.Email</h4>
 
 

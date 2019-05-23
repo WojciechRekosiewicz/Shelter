@@ -7,16 +7,19 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Shelter.Models;
+using Shelter.ViewModels;
 
 namespace Shelter.Controllers
 {
     public class AdvertController : Controller
     {
         private readonly IAdvertRepository _advertRepository;
+        private readonly IUserRepository _userRepository;
 
-        public AdvertController(IAdvertRepository advertRepository)
+        public AdvertController(IAdvertRepository advertRepository, IUserRepository userRepository)
         {
             _advertRepository = advertRepository;
+            _userRepository = userRepository;
         }
 
         public IActionResult List()
@@ -115,13 +118,16 @@ namespace Shelter.Controllers
 
                     advert.ReservingId = userId;
 
-                    var user = _advertRepository.GetUserById(userId);
+                    var user = _userRepository.GetUserById(userId);
                     _advertRepository.Update(advert);
+                    
+                    var viewModel = new AdvertViewModel()
+                    {
+                        Title = advert.Title,
+                        User = user
+                    };
 
-                    Console.WriteLine(user.Email);
-                    Console.WriteLine(user.Id);
-
-                    return View(advert);
+                    return View(viewModel);
 
                 }
                 else

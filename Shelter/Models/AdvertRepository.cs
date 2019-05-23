@@ -20,11 +20,6 @@ namespace Shelter.Models
             return _appDbContext.Adverts.Where(advert => advert.AuthorId == id).ToArray();
         }
 
-        public IdentityUser GetUserById(string id)
-        {
-            return _appDbContext.AspNetUsers.Where(user => user.Id == id).FirstOrDefault();
-        }
-
         public IEnumerable<Advert> GetAllAdverts()
         {
             return _appDbContext.Adverts.ToArray();
