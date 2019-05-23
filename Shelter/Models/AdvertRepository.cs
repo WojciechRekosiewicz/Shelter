@@ -1,4 +1,5 @@
-﻿ using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,6 +18,11 @@ namespace Shelter.Models
         public IEnumerable<Advert> GetAdvertsByUserId(string id)
         {
             return _appDbContext.Adverts.Where(advert => advert.AuthorId == id).ToArray();
+        }
+
+        public IdentityUser GetUserById(string id)
+        {
+            return _appDbContext.AspNetUsers.Where(user => user.Id == id).FirstOrDefault();
         }
 
         public IEnumerable<Advert> GetAllAdverts()

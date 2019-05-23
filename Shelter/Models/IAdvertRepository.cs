@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,5 +15,6 @@ namespace Shelter.Models
         void Delete(int id);
         void Update(Advert advert);
         bool CanDelete(string userId, int advertId);
+        IdentityUser GetUserById(string id); 
     }
 }

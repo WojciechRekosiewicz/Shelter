@@ -112,10 +112,17 @@ namespace Shelter.Controllers
                 var advert = _advertRepository.GetAdvertById(id);
                 if (advert.ReservingId == null && !advert.AuthorId.Equals(userId))
                 {
+
                     advert.ReservingId = userId;
 
+                    var user = _advertRepository.GetUserById(userId);
                     _advertRepository.Update(advert);
+
+                    Console.WriteLine(user.Email);
+                    Console.WriteLine(user.Id);
+
                     return View(advert);
+
                 }
                 else
                 {
