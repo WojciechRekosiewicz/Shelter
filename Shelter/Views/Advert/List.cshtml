@@ -13,9 +13,10 @@
         @foreach (var advert in Model)
         {
 
-            <div class="col-sm-1 col-lg-4 col-md-4">
+          <div>  
+                <div class="col-sm-1 col-lg-4 col-md-4">
                 <div class="thumbnail">
-                    <img src="@advert.ImageUrl" alt="" height="420" width="420" />
+                    <img src="@advert.ImageUrl" class="thumbnail img" alt=""/>
                     <div class="caption">
                         @if (@advert.ReservingId == null)
                         {
@@ -50,6 +51,7 @@
                     }
                 </div>
             </div>
+          </div>
         }
 
         <div id="confirmDialog" title="Save Student" hidden>

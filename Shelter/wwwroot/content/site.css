@@ -9,3 +9,9 @@
     padding-left: 15px;
     padding-right: 15px;
 }
+
+.thumbnail img{
+    width: 30vw;
+    height: 30vw;
+    object-fit: cover;
+}
