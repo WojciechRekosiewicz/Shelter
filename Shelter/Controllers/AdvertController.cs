@@ -133,7 +133,7 @@ namespace Shelter.Controllers
                 }
                 else
                 {
-                    return Redirect("/");
+                    return Redirect($"/Advert/Details/{id}");
                 }
 
             }

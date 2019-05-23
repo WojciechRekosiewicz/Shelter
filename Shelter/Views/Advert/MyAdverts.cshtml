@@ -17,15 +17,11 @@
                 <div class="caption">
                     @if (@advert.ReservingId == null)
                     {
-                        <h4 class="pull-right">
-                            Avaiable
-                        </h4>
+                        <span class="label label-success badge-pill">Avaiable</span>
                     }
                     else
                     {
-                        <h4 class="pull-right">
-                            Reserved
-                        </h4>
+                        <span class="label label-danger badge-pill">Reserved</span>
                     }
                     <h4>
                         <a asp-controller="Advert" asp-action="Details" asp-route-id="@advert.AdvertId">@advert.Title</a>

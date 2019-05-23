@@ -11,7 +11,7 @@
         @*<p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>*@
 
         @foreach (var advert in Model)
-        {
+        {   
           <div>  
                 <div class="col-sm-1 col-lg-4 col-md-4">
                 <div class="thumbnail">
@@ -19,15 +19,11 @@
                     <div class="caption">
                         @if (@advert.ReservingId == null)
                         {
-                            <h4 class="pull-right">
-                                Avaiable
-                            </h4>
+                        <span class="label label-success badge-pill">Avaiable</span>
                         }
                         else
                         {
-                            <h4 class="pull-right">
-                                Reserved
-                            </h4>
+                        <span class="label label-danger badge-pill">Reserved</span>
                         }
                         <h4>
                             <a asp-controller="Advert" asp-action="Details" asp-route-id="@advert.AdvertId">@advert.Title</a>
@@ -35,7 +31,7 @@
                         <h4>
                             @advert.ShortDescription
                         </h4>
-                    </div>
+</div>
                 </div>
             </div>
           </div>
