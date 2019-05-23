@@ -113,12 +113,13 @@ namespace Shelter.Controllers
             {
                 var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
                 var advert = _advertRepository.GetAdvertById(id);
+                var authorId = advert.AuthorId;
                 if (advert.ReservingId == null && !advert.AuthorId.Equals(userId))
                 {
 
                     advert.ReservingId = userId;
 
-                    var user = _userRepository.GetUserById(userId);
+                    var user = _userRepository.GetUserById(authorId);
                     _advertRepository.Update(advert);
                     
                     var viewModel = new AdvertViewModel()
