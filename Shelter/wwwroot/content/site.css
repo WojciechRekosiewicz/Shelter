@@ -10,8 +10,16 @@
     padding-right: 15px;
 }
 
-.thumbnail img{
+.thumbnail img {
     width: 20vw;
     height: 20vw;
     object-fit: cover;
+}
+
+.thumbnail {
+    text-align: center;
+}
+
+.advert-short-description {
+    height: 5vw;
 }

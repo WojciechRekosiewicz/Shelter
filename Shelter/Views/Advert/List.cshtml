@@ -13,27 +13,29 @@
         @foreach (var advert in Model)
         {   
           <div>  
-                <div class="col-sm-1 col-lg-4 col-md-4">
-                <div class="thumbnail">
+                <div class="advert col-sm-1 col-lg-4 col-md-4">
+                    <div class="thumbnail">
                     <img src="@advert.ImageUrl" class="thumbnail img" alt=""/>
-                    <div class="caption">
-                        @if (@advert.ReservingId == null)
-                        {
-                        <span class="label label-success badge-pill">Avaiable</span>
-                        }
-                        else
-                        {
-                        <span class="label label-danger badge-pill">Reserved</span>
-                        }
-                        <h4>
-                            <a asp-controller="Advert" asp-action="Details" asp-route-id="@advert.AdvertId">@advert.Title</a>
-                        </h4>
-                        <h4>
-                            @advert.ShortDescription
-                        </h4>
-</div>
+                        <div class="card">
+                            <div class="advert-title.">
+                                <a asp-controller="Advert" asp-action="Details" asp-route-id="@advert.AdvertId">@advert.Title</a>
+                            </div>
+                            <div class="advert-short-description card-text">
+                                <p>@advert.ShortDescription</p>
+                            </div>
+                            <div class="advert-status">
+                                @if (@advert.ReservingId == null)
+                                {
+                                    <span class="label label-success badge-pill">Available</span>
+                                }
+                                else
+                                {
+                                    <span class="label label-danger badge-pill">Reserved</span>
+                                }
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
           </div>
         }
     </div>

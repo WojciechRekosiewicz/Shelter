@@ -1,27 +1,28 @@
 ﻿@model Shelter.Models.Advert
 
-<h2>@Model.Title</h2>
+<h2 class="text-center">@Model.Title</h2>
 
 <div class="thumbnail">
     <img alt="@Model.Title" src="@Model.ImageUrl" />
-    <div class="caption-full">
+    <div class="caption container break-text">
+        <div class="advert-short-description">
+            <p><b><u>Short description:</u></b></p>
+            <p>@Model.ShortDescription</p>
+        </div>
+        <div class="advert-long-description">
+            <p><b><u>Long description:</u></b></p>
+            <p>@Model.LongDescription </p>
+        </div>
 
-        @if (@Model.ReservingId == null)
-        {
-            <form asp-action="Reserve">
-                <input asp-controller="Advert" asp-action="Reserve" asp-route-id="@Model.AdvertId" type="submit" value="Reserve" class="btn btn-success pull-right" />
-            </form>
-        }
-        else
-        {
-            <form asp-action="Reserve">
-                <input asp-controller="Advert" asp-action="Reserve" asp-route-id="@Model.AdvertId" type="submit" value="Reserved" class="btn btn-danger pull-right" disabled />
-            </form>}
-        <h3>
-            @Model.Title
-        </h3>
-        <h4>@Model.ShortDescription</h4>
-        <p>@Model.LongDescription </p>
-
+        <form asp-action="Reserve">
+            @if (@Model.ReservingId == null)
+            {
+                <button asp-controller="Advert" asp-action="Reserve" asp-route-id="@Model.AdvertId" type="submit" value="Reserve" class="btn btn-success">Reserve</button>
+            }
+            else
+            {
+                <button asp-controller="Advert" asp-action="Reserve" asp-route-id="@Model.AdvertId" type="submit" value="Reserve" class="btn btn-danger" disabled>Reserved</button>
+            }
+        </form>
     </div>
 </div>
