@@ -12,22 +12,19 @@
 
         @foreach (var advert in Model)
         {
-
-            <div class="col-sm-1 col-lg-4 col-md-4">
+            <div class="col-sm-1 col-lg-4 col-md-4 container-fluid">
+                <div class="container">
+                </div>
                 <div class="thumbnail">
                     <img src="@advert.ImageUrl" alt="" height="420" width="420" />
                     <div class="caption">
                         @if (@advert.ReservingId == null)
                         {
-                            <h4 class="pull-right">
-                                Avaiable
-                            </h4>
+                            <span class="label label-success badge-pill">Available</span>
                         }
                         else
                         {
-                            <h4 class="pull-right">
-                                Reserved
-                            </h4>
+                            <span class="label label-danger badge-pill">Reserved</span>
                         }
                         <h4>
                             <a asp-controller="Advert" asp-action="Details" asp-route-id="@advert.AdvertId">@advert.Title</a>
@@ -37,22 +34,7 @@
                         </h4>
 
                     </div>
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-
-                        if (currentUserId == advert.AuthorId)
-                        {
-                            <form action="/Advert/Delete/@advert.AdvertId" class="inline">
-                                <button class="float-left submit-button btn btn-default">Delete</button>
-                            </form>
-                        }
-                    }
                 </div>
             </div>
         }
-
-        <div id="confirmDialog" title="Save Student" hidden>
-            <p>Do you want to save changes </p>
-        </div>
     </div>
