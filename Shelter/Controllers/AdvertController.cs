@@ -15,11 +15,13 @@ namespace Shelter.Controllers
     {
         private readonly IAdvertRepository _advertRepository;
         private readonly IUserRepository _userRepository;
-
-        public AdvertController(IAdvertRepository advertRepository, IUserRepository userRepository)
+        private readonly UserManager<IdentityUser> _userManager;
+            
+        public AdvertController(IAdvertRepository advertRepository, IUserRepository userRepository, UserManager<IdentityUser> userManager)
         {
             _advertRepository = advertRepository;
             _userRepository = userRepository;
+            _userManager = userManager;
         }
 
         public IActionResult List()
@@ -73,7 +75,9 @@ namespace Shelter.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 // Getting user's Id from the session
-                var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                // Previous approach which was iterating through all users trying to find matching one
+                // User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                var userId = _userManager.GetUserId(HttpContext.User);
                 advert.AuthorId = userId;
 
                 // Render back to the creation route, otherwise validation does not work
@@ -111,15 +115,15 @@ namespace Shelter.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                var userId = _userManager.GetUserId(HttpContext.User);
                 var advert = _advertRepository.GetAdvertById(id);
                 var authorId = advert.AuthorId;
+
                 if (advert.ReservingId == null && !advert.AuthorId.Equals(userId))
                 {
-
-                    advert.ReservingId = userId;
-
+                    // Updating model
                     var user = _userRepository.GetUserById(authorId);
+                    advert.ReservingId = userId;
                     _advertRepository.Update(advert);
                     
                     var viewModel = new AdvertViewModel()
@@ -148,8 +152,8 @@ namespace Shelter.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 // Getting logged in user's id
-                var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-                
+                var userId = _userManager.GetUserId(HttpContext.User);
+
                 if (_advertRepository.CanDelete(userId, id))
                 {
                     _advertRepository.Delete(id);
