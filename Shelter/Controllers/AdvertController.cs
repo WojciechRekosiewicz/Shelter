@@ -66,6 +66,31 @@ namespace Shelter.Controllers
             }
         }
 
+        public IActionResult Delete(int id)
+        {
+            // Check if user is logged in
+            if (User.Identity.IsAuthenticated)
+            {
+                // Getting logged in user's id
+                var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                
+                if (_advertRepository.CanDelete(userId, id))
+                {
+                    _advertRepository.Delete(id);
+
+                    // TODO: Redirect to proper page with detailed information
+                    return Redirect("/");
+                }
+                else
+                {
+                    // TODO: Redirect to proper page with detailed information
+                    return Redirect("/");
+                }
+            }
+
+            return Redirect("/");
+        }
+        
         [HttpGet]
         public IActionResult Reserve(string errorMessage = null)
         {
@@ -106,6 +131,5 @@ namespace Shelter.Controllers
                 return Redirect("/Identity/Account/Login");
             }
         }
-
     }
 }

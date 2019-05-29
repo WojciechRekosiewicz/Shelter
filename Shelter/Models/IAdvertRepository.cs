@@ -11,6 +11,7 @@ namespace Shelter.Models
         Advert GetAdvertById(int AdvertID);
         void Create(Advert advert);
         void Delete(int id);
+        bool CanDelete(string userId, int advertId);
         void Update(Advert advert);
     }
 }
