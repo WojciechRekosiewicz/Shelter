@@ -51,5 +51,12 @@ namespace Shelter.Models
 
             return (record != null) ? record == userId : false;
         }
+
+        public void Update(Advert advert)
+        {
+            _appDbContext.Update(advert);
+
+            _appDbContext.SaveChanges();
+        }
     }
 }
