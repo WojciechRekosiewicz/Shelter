@@ -1,21 +1,48 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Shelter.Models;
+using Shelter.ViewModels;
 
 namespace Shelter.Controllers
 {
     public class AdvertController : Controller
     {
         private readonly IAdvertRepository _advertRepository;
-
-        public AdvertController(IAdvertRepository advertRepository)
+        private readonly IUserRepository _userRepository;
+        private readonly UserManager<IdentityUser> _userManager;
+            
+        public AdvertController(IAdvertRepository advertRepository, IUserRepository userRepository, UserManager<IdentityUser> userManager)
         {
             _advertRepository = advertRepository;
+            _userRepository = userRepository;
+            _userManager = userManager;
+        }
+
+        public IActionResult List()
+        {
+            var adverts = _advertRepository.GetAllAdverts().OrderBy(p => p.Title);
+
+            return View(adverts);
+        }
+
+        public IActionResult MyAdverts()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var adverts = _advertRepository.GetAdvertsByUserId(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+
+                return View(adverts);
+            }
+            else
+            {
+                return Redirect("/Identity/Account/Login");
+            }
         }
 
         public IActionResult Details(int id)
@@ -48,7 +75,9 @@ namespace Shelter.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 // Getting user's Id from the session
-                var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                // Previous approach which was iterating through all users trying to find matching one
+                // User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                var userId = _userManager.GetUserId(HttpContext.User);
                 advert.AuthorId = userId;
 
                 // Render back to the creation route, otherwise validation does not work
@@ -64,31 +93,6 @@ namespace Shelter.Controllers
             {
                 return Redirect("/Identity/Account/Login");
             }
-        }
-
-        public IActionResult Delete(int id)
-        {
-            // Check if user is logged in
-            if (User.Identity.IsAuthenticated)
-            {
-                // Getting logged in user's id
-                var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-                
-                if (_advertRepository.CanDelete(userId, id))
-                {
-                    _advertRepository.Delete(id);
-
-                    // TODO: Redirect to proper page with detailed information
-                    return Redirect("/");
-                }
-                else
-                {
-                    // TODO: Redirect to proper page with detailed information
-                    return Redirect("/");
-                }
-            }
-
-            return Redirect("/");
         }
         
         [HttpGet]
@@ -111,25 +115,60 @@ namespace Shelter.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                var userId = _userManager.GetUserId(HttpContext.User);
                 var advert = _advertRepository.GetAdvertById(id);
-                if (advert.ReservingId == null)
-                {
-                    advert.ReservingId = userId;
+                var authorId = advert.AuthorId;
 
+                if (advert.ReservingId == null && !advert.AuthorId.Equals(userId))
+                {
+                    // Updating model
+                    var user = _userRepository.GetUserById(authorId);
+                    advert.ReservingId = userId;
                     _advertRepository.Update(advert);
-                    return View(advert);
+                    
+                    var viewModel = new AdvertViewModel()
+                    {
+                        Title = advert.Title,
+                        User = user
+                    };
+
+                    return View(viewModel);
+
                 }
                 else
                 {
-                    return Redirect("/");
+                    return Redirect($"/Advert/Details/{id}");
                 }
-          
+
             }
             else
             {
                 return Redirect("/Identity/Account/Login");
             }
+        }
+        public IActionResult Delete(int id)
+        {
+            // Check if user is logged in
+            if (User.Identity.IsAuthenticated)
+            {
+                // Getting logged in user's id
+                var userId = _userManager.GetUserId(HttpContext.User);
+
+                if (_advertRepository.CanDelete(userId, id))
+                {
+                    _advertRepository.Delete(id);
+
+                    // TODO: Redirect to proper page with detailed information
+                    return Redirect("/");
+                }
+                else
+                {
+                    // TODO: Redirect to proper page with detailed information
+                    return Redirect("/");
+                }
+            }
+
+            return Redirect("/");
         }
     }
 }

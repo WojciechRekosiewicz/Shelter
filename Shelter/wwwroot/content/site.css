@@ -5,7 +5,13 @@
     background-repeat: repeat;
 }
 
-.body-content {
+.sbody-content {
     padding-left: 15px;
     padding-right: 15px;
+}
+
+.thumbnail img{
+    width: 20vw;
+    height: 20vw;
+    object-fit: cover;
 }

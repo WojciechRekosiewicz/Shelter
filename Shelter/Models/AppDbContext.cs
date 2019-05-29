@@ -16,5 +16,6 @@ namespace Shelter.Models
         }
 
         public DbSet<Advert> Adverts { get; set; }
+        public DbSet<IdentityUser> AspNetUsers { get; set; }
     }
 }
